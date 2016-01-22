@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 __author__ = 'Tom Schaul, tom@idsia.ch'
 
 from pybrain.rl.agents.logging import LoggingAgent
@@ -68,14 +70,14 @@ class LinearFA_Agent(LoggingAgent):
         else:
             self._temperature *= self.temperature_decay
             self._expl_proportion *= self.exploration_decay      
-            self.learner._decayLearningRate()
+            self.learner.newEpisode()
 
             
     def learn(self):
         if not self.learning:
             return
         if not self.learner.batchMode:
-            print 'Learning is done online, and already finished.'
+            print('Learning is done online, and already finished.')
             return
         for seq in self.history:
             for obs, action, reward in seq:
